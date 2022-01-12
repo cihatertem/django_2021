@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% block body %}
+    <h1>Projects</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.title }} {% if project.topRated %} <strong>Top Rated</strong> {% endif %}</td>
+                <td>{{ project.description }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
