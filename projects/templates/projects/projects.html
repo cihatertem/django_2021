@@ -2,22 +2,24 @@
 {% block body %}
     <h1>Projects</h1>
     <table>
-        <thead>
         <tr>
             <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
+            <th>Project</th>
+            <th>Votes</th>
+            <th>Positive Votes</th>
+            <th>Created</th>
+            <th></th>
         </tr>
-        </thead>
-        <tbody>
         {% for project in projects %}
             <tr>
                 <td>{{ project.id }}</td>
-                <td>{{ project.title }} {% if project.topRated %} <strong>Top Rated</strong> {% endif %}</td>
-                <td>{{ project.description }}</td>
+                <td>{{ project.title }}</td>
+                <td>{{ project.vote_total }}</td>
+                <td>{{ project.vote_ratio }}%</td>
+                <td>{{ project.created }}</td>
+                <td><a href="{% url 'projects:project' project.id %}">View</a></td>
             </tr>
         {% endfor %}
 
-        </tbody>
     </table>
 {% endblock %}
