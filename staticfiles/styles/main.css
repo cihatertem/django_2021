@@ -1,0 +1,12 @@
+body {
+    background-color: azure;
+    color: #383737;
+}
+
+h1 {
+    color: red;
+}
+
+img {
+    max-width: 75px;
+}

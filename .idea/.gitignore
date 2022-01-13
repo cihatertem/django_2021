@@ -8,5 +8,7 @@
 /dataSources.local.xml
 
 venv/
+.idea/
+Django-2021-master/
 .env
 db.sqlite3
