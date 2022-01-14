@@ -8,7 +8,6 @@ class ProjectForm(ModelForm):
         model = Project
         # fields = "__all__"
         fields = ["title", "featured_img", "description", "demo_link", "source_link", "tags"]
-
         widgets = {
             "tags": forms.CheckboxSelectMultiple(),
         }
