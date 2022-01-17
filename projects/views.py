@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+# Django Auth.
+from django.contrib.auth.decorators import login_required
 
 # models
 from .models import Project
@@ -29,6 +31,7 @@ def project(request, pk):
     return render(request, template_name, context)
 
 
+@login_required(login_url="users:login")
 def create_project(request):
     template_name = "projects/project_form.html"
     form = ProjectForm()
@@ -46,6 +49,7 @@ def create_project(request):
     return render(request, template_name, context)
 
 
+@login_required(login_url="users:login")
 def update_project(request, pk):
     template_name = "projects/project_form.html"
     project = get_object_or_404(Project, id=pk)
@@ -64,6 +68,7 @@ def update_project(request, pk):
     return render(request, template_name, context)
 
 
+@login_required(login_url="users:login")
 def delete_project(request, pk):
     template_name = "projects/delete_template.html"
     project = get_object_or_404(Project, id=pk)
