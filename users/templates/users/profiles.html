@@ -50,7 +50,9 @@
                             </div>
                         </div>
                     {% empty %}
-                        <p>There are no developers yet. Do you want to be the first? <a href="TODO">Register...</a></p>
+                        <p>There are no developers yet. Do you want to be the first? <a
+                                href="{% url 'users:register' %}">Register..
+                            .</a></p>
                     {% endfor %}
                 </div>
             </div>

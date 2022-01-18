@@ -8,8 +8,6 @@ from .models import Profile
 def create_update_profile(sender, instance, created, **kwargs):
     """
     The function creates a linked profile to the user that just created
-    or
-    updates the linked profile after user table updated.
     """
     if created:
         user = instance
@@ -19,14 +17,17 @@ def create_update_profile(sender, instance, created, **kwargs):
             email=user.email,
             name=f"{user.first_name} {user.last_name}"
         )
-    else:
-        user = instance
-        profile = Profile.objects.get(user_id=user.id)
-        profile.user = user
-        profile.username = user.username
-        profile.email = user.email
-        profile.name = f"{user.first_name} {user.last_name}"
-        profile.save()
+
+
+@receiver(post_save, sender=Profile)
+def update_profile(sender, instance, created, **kwargs):
+    profile = instance
+    user = profile.user
+    if created == False:
+        user.first_name = profile.name
+        user.username = profile.username
+        user.email = profile.email
+        user.save()
 
 
 @receiver(post_delete, sender=Profile)

@@ -650,7 +650,6 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .auth::after {
@@ -663,7 +662,7 @@ img {
     left: 0;
     bottom: 0;
     right: 0;
-    background: url('../images/pattern.jpg');
+    background: url(../images/pattern.jpg);
 }
 
 .auth > .card {
@@ -849,4 +848,19 @@ img {
     color: var(--color-sub);
     margin-bottom: 1rem;
     margin-top: 2rem;
+}
+
+
+/*=======================
+  Fixed Position Alerts Wrapper
+========================*/
+
+.alert {
+    position: fixed;
+    left: 50%;
+    top: 120px;
+    transform: translate(-50%, -50%);
+
+
+    z-index: 99999;
 }

@@ -9,4 +9,9 @@ urlpatterns = [
     path("login/", views.login_page, name="login"),
     path("logout/", views.logout_user, name="logut"),
     path("register/", views.register_user, name="register"),
+    path("account/", views.user_account, name="account"),
+    path("edit-account/", views.edit_account, name="edit_account"),
+    path("create-skill/", views.create_skill, name="create_skill"),
+    path("update-skill/<str:pk>/", views.update_skill, name="update_skill"),
+    path("delete-skill/<str:pk>/", views.delete_skill, name="delete_skill"),
 ]

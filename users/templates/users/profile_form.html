@@ -7,14 +7,16 @@
                 im-angle-left"></i></a>
                 <br>
 
-                <form class="form" method="POST" enctype="multipart/form-data">
+                <form class="form" action="{% url 'users:edit_account' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {% for field in form %}
                         <div class="form__field">
-                            <label for="formInput#text">{{ field.label }}</label>
+                            <label for="formInput#text">{{ field.label }} </label>
                             {{ field }}
                         </div>
                     {% endfor %}
+
+
                     <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit"/>
                 </form>
             </div>

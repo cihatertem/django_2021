@@ -7,7 +7,7 @@
                 <br>
                 <form class="form" method="POST">
                     {% csrf_token %}
-                    <p>Are your sure you want to delete this <strong>"{{ object }}"</strong>?</p>
+                    <p>Are your sure you want to delete this <strong>"{{ skill }}"</strong>?</p>
                     <a class="btn btn--sub btn--lg  my-md" href="{{ request.GET.back }}">&#x2190 Go Back</a>
                     <input class="btn btn--sub btn--lg  my-md" type="submit" value="Delete"/>
                 </form>

@@ -19,14 +19,26 @@
 <body>
 {% include "includes/navbar.html" %}
 
+{#{% if messages %}#}
+{#    {% for message in messages %}#}
+{#        <div {% if message.tags %} class="alert alert--{{ message.tags }}" {% else %}#}
+{#                                   class="alert" {% endif %}>#}
+{#            <p class="alert__message">{{ message }}</p>#}
+{#            <button style="padding: 4px; cursor: pointer; z-index: 99999" class="alert__close">⨯</button>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{#{% endif %}#}
+
 {% if messages %}
+
     {% for message in messages %}
-        <div {% if message.tags %} class="alert alert--{{ message.tags }}" {% else %}
-                                   class="alert" {% endif %}>
+        <div class="alert  alert--{{ message.tags }}">
             <p class="alert__message">{{ message }}</p>
-            <button style="padding: 4px; cursor: pointer; z-index: 99999" class="alert__close">⨯</button>
+            <button class="alert__close">x</button>
         </div>
+
     {% endfor %}
+
 {% endif %}
 
 {% block body %}
