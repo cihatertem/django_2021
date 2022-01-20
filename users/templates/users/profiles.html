@@ -9,10 +9,12 @@
                     <h2>FROM AROUND THE WORLD</h2>
                 </div>
                 <div class="hero-section__search">
-                    <form class="form" action="#" method="get">
+                    <form id="search-form" class="form" action="{% url 'users:profiles' %}" method="get">
                         <div class="form__field">
                             <label for="formInput#search">Search Developers </label>
-                            <input class="input input--text" id="formInput#search" type="text" name="text"
+                            <input class="input input--text" id="formInput#search" type="text" value="
+{{ search_query }}"
+                                   name="search_query"
                                    placeholder="Search by developer name"/>
                         </div>
                         <input class="btn btn--sub btn--lg" type="submit" value="Search"/>
@@ -49,13 +51,10 @@
                                 </a>
                             </div>
                         </div>
-                    {% empty %}
-                        <p>There are no developers yet. Do you want to be the first? <a
-                                href="{% url 'users:register' %}">Register..
-                            .</a></p>
                     {% endfor %}
                 </div>
             </div>
         </section>
+        {% include "includes/pagination.html" with queryset=profiles custom_range=custom_range %}
     </main>
 {% endblock %}

@@ -5,17 +5,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # models
 from .models import Project
-# forms
+# app imports
 from .forms import ProjectForm
+from .utils import search_projects, pagination_projects
 
 
 # Create your views here.
 def projects(request):
     template_name = "projects/projects.html"
-    projects = Project.objects.all().order_by("-created")
+    search_query, projects = search_projects(request)
+    custom_range, projects = pagination_projects(request, projects, 6)
+
     context = {
-        "projects": projects
+        "projects": projects,
+        "search_query": search_query,
+        "custom_range": custom_range
     }
+
     return render(request, template_name, context)
 
 
@@ -56,7 +62,6 @@ def create_project(request):
 def update_project(request, pk):
     profile = request.user.profile
     template_name = "projects/project_form.html"
-    # project = get_object_or_404(Project, id=pk)
 
     try:
         project = profile.project_set.get(id=pk)
@@ -83,7 +88,6 @@ def update_project(request, pk):
 def delete_project(request, pk):
     profile = request.user.profile
     template_name = "projects/delete_template.html"
-    # project = get_object_or_404(Project, id=pk)
 
     try:
         project = profile.project_set.get(id=pk)

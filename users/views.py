@@ -1,23 +1,29 @@
-from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 # Django Auth.
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-# Django User Model / Forms
+# Django User Model
 from django.contrib.auth.models import User
 # Django messages
 from django.contrib import messages
 # app imports
 from .models import Profile
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
+from .utils import search_profiles, pagination_profiles
 
 
 # Create your views here.
 def profiles(request):
     template = "users/profiles.html"
-    profiles = get_list_or_404(Profile)
+    profiles, search_query = search_profiles(request)
+    custom_range, profiles = pagination_profiles(request, profiles, 6)
+
     context = {
-        "profiles": profiles
+        "profiles": profiles,
+        "search_query": search_query,
+        "custom_range": custom_range
     }
+
     return render(request, template, context)
 
 
@@ -31,6 +37,7 @@ def user_profile(request, pk):
         "topSkills": top_skills,
         "otherSkills": other_skills
     }
+
     return render(request, template, context)
 
 

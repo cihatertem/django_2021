@@ -25,6 +25,10 @@ class Project(models.Model):
             return f"{self.title[:25]}..."
 
 
+    class Meta:
+        ordering = ('-created',)
+
+
 class Review(models.Model):
     VOTE_TYPE = (
         ("up", "Up Vote"),
