@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # Django Auth.
 from django.contrib.auth.decorators import login_required
 # Django messages
@@ -6,7 +6,7 @@ from django.contrib import messages
 # models
 from .models import Project
 # app imports
-from .forms import ProjectForm
+from .forms import ProjectForm, ReviewForm
 from .utils import search_projects, pagination_projects
 
 
@@ -27,12 +27,26 @@ def projects(request):
 
 def project(request, pk):
     template_name = "projects/project.html"
-    project_object = Project.objects.get(id=pk)
+    project_object = get_object_or_404(Project, id=pk)
     tags = project_object.tags.all()
+    form = ReviewForm()
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.project = project_object
+            review.owner = request.user.profile
+            review.save()
+            project_object.get_vote_count
+            messages.success(request, "Your review was successfully submited.")
+
+            return redirect("projects:project", pk=project_object.id)
 
     context = {
         "project": project_object,
-        "tags": tags
+        "tags": tags,
+        "form": form,
     }
     return render(request, template_name, context)
 
