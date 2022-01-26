@@ -1,7 +1,9 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from .models import Profile
+from django.conf import settings
 
 
 @receiver(post_save, sender=User)
@@ -16,6 +18,15 @@ def create_update_profile(sender, instance, created, **kwargs):
             username=user.username,
             email=user.email,
             name=f"{user.first_name} {user.last_name}"
+        )
+        subject = "Welcome to DevSearch!"
+        message = "We are glad you are here. Enjoy!"
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [profile.email],
+            fail_silently=False
         )
 
 
