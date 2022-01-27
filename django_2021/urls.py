@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("projects/", include("projects.urls", namespace="projects")),
     path("", include("users.urls", namespace="users")),
+    path("api/", include("api.urls", namespace="api")),
     # Auth paths
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"),
          name='reset_password'),
