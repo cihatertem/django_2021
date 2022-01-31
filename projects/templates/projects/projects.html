@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block body %}
     <main class="projects">
         <section class="hero-section text-center">
@@ -32,8 +33,15 @@
                         <div class="column">
                             <div class="card project">
                                 <a href="{% url 'projects:project' project.id %}" class="project">
-                                    <img class="project__thumbnail" src="{{ project.featured_img.url }}" alt="project
+                                    {% if project.image_url %}
+                                        <img class="project__thumbnail" src="{{ project.image_url }}" alt="project
                                     thumbnail"/>
+                                    {% else %}
+                                        <img class="project__thumbnail" src="{% static 'images/default.jpg' %}"
+                                             alt="project
+                                    thumbnail"/>
+                                    {% endif %}
+
                                     <div class="card__body">
                                         <h3 class="project__title">{{ project.title }}</h3>
                                         <p><a class="project__author"
@@ -52,7 +60,8 @@
                                                 </span>
                                             {% endfor %}
                                         </div>
-                         ªª           </div>
+                                        ªª
+                                    </div>
                                 </a>
                             </div>
                         </div>

@@ -46,5 +46,8 @@ def delete_user(sender, instance, **kwargs):
     """
     The function deletes the linked user to the profile that has been just deleted.
     """
-    user = instance.user
-    user.delete()
+    try:
+        user = instance.user
+        user.delete()
+    except:
+        pass

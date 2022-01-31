@@ -31,8 +31,15 @@
                             <div class="dev">
                                 <a href="{% url 'users:user_profile' profile.id %}" class="card__body">
                                     <div class="dev__profile">
-                                        <img class="avatar avatar--md"
-                                             src="{{ profile.profile_img.url }}" alt="Avatar"/>
+
+                                        {% if profile.image_url %}
+                                            <img class="avatar avatar--md" src="{{ profile.image_url }}" alt="Avatar"/>
+                                        {% else %}
+                                            <img class="avatar avatar--md" src=
+                                                    "{% static 'images/profiles/user-default.jpg' %}"
+                                                 alt="Avatar"/>
+                                        {% endif %}
+
                                         <div class="dev__meta">
                                             <h3>{{ profile.name|slice:"20" }}</h3>
                                             <h5>{{ profile.short_intro|slice:"40" }}</h5>

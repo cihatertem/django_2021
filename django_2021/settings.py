@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     # third parties
     "rest_framework",
+    "corsheaders",
 ]
 
 REST_FRAMEWORK = {'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -74,6 +75,8 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # CorsHeaders
+    "corsheaders.middleware.CorsMiddleware",
     # whitenoise middleware
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -151,6 +154,12 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+# CorsHeaders Allowed
+CORS_ALLOWED_ORIGINS = (
+    'http://127.0.0.1:5500',
+    'http://localhost:5500',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

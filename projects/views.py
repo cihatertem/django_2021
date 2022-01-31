@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 # Django messages
 from django.contrib import messages
 # models
-from .models import Project
+from .models import Project, Tag
 # app imports
 from .forms import ProjectForm, ReviewForm
 from .utils import search_projects, pagination_projects
@@ -58,11 +58,18 @@ def create_project(request):
     form = ProjectForm()
 
     if request.method == "POST":
+        new_tags = request.POST.get("newtags").replace(',', " ").split(" ")
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.owner = profile
             project.save()
+            for tag in new_tags:
+                if tag != "":
+                    tag, created = Tag.objects.get_or_create(
+                        name=tag
+                    )
+                    project.tags.add(tag)
             return redirect("users:account")
 
     context = {
@@ -86,13 +93,22 @@ def update_project(request, pk):
     form = ProjectForm(instance=project)
 
     if request.method == "POST":
+        new_tags = request.POST.get("newtags").replace(',', " ").split(" ")
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
-            form.save()
+            project = form.save()
+            for tag in new_tags:
+                if tag != "":
+                    tag, created = Tag.objects.get_or_create(
+                        name=tag
+                    )
+                    project.tags.add(tag)
+
             return redirect("users:account")
 
     context = {
-        "form": form
+        "form": form,
+        "project": project
     }
 
     return render(request, template_name, context)
