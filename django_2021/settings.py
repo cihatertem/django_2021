@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # third parties
     "rest_framework",
     "corsheaders",
+    "storages",
 ]
 
 REST_FRAMEWORK = {'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -112,9 +113,17 @@ WSGI_APPLICATION = 'django_2021.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "devsearch",
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASS"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": "5432",
     }
 }
 
@@ -173,6 +182,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles/"
 
 MEDIA_URL = "images/"
 MEDIA_ROOT = BASE_DIR / "static/images/"
+
+# S3 Bucket
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_ACCESS_SECRET")
+AWS_STORAGE_BUCKET_NAME = os.getenv("BUCKET_NAME")
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
